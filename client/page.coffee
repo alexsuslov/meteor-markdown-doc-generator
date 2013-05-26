@@ -46,6 +46,11 @@ Template.view.owned = ()->
 Template.main.content = ()->
   resp = getPage 'main'
   "<div class=\"md\">" + marked( resp) + "</div>"
+
+Template.md.content = ()->
+  name = Session.get 'page'
+  getPage name
+
 Template.view.content = ()->
   name = Session.get 'page'
   resp = getPage name

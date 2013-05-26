@@ -15,6 +15,9 @@ Meteor.Router.add
       'edit'
     else
       '404'
+  '/md/:name': (name)->
+    Session.set 'page', name
+    'md'
   '/:name': (name)->
     Session.set 'page', name
     'view'
