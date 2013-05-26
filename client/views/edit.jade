@@ -1,0 +1,20 @@
+template(name='edit')
+  .container-fluid
+    .row-fluid
+      .span12
+        .control-group
+          label Наименование
+          .controls
+            input#displayName(type='text',value='{{page.displayName}}')
+        .control-group
+          label Тэги
+          .controls
+            input#tags(type='text',value='{{page.tag}}')
+        .control-group
+          textarea#content.input-xxlarge(rows="20") {{page.content}}
+        .control-group
+          .controls
+          a#save.btn(href='/{{page.name}}') Save
+
+template(name='createNew')
+  a.btn(href='/{{this}}') Сделаем новую страницу? {{this}}

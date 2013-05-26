@@ -1,0 +1,10 @@
+template( name='view')
+  .container-fluid
+    {{> navbar}}
+    {{#if owned}}
+    a.btn(href='/edit/{{owned}}') Редактировать
+    {{/if}}
+    .row-fluid
+      .span12
+        {{{content}}}
+    {{> footer}}

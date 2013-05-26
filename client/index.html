@@ -1,0 +1,36 @@
+<head>
+  <title>@DoGe</title>
+</head>
+
+<body>
+  {{> body}}
+</body>
+
+<template name="body">
+  {{renderPage layoutName}}
+</template>
+
+<template name='navbar'>
+  <div class="row-fluid">
+  <div class='span12'>
+    {{loginButtons}}
+    <hr>
+  </div>
+  </div>
+</template>
+
+<template name="404">
+<p>404</p>
+</template>
+<template name="footer">
+  <footer class="row-fluid">
+    <hr class="featurette-divider"/>
+    <p class="pull-right">
+      <a href=""> Вверх</a>
+    </p>
+    <p>© 2013 @DoGe
+      <a href="#"> Terms</a>.
+      <a href="#"> Information</a>
+    </p>
+  </footer>
+</template>
