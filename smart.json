@@ -1,10 +1,4 @@
 {
-  "name": "pige",
-  "description": "markdown page generator with include page function",
-  "homepage": "https://github.com/alexsuslov/meteor-markdown-doc-generator",
-  "author": "Alex Suslov <suslov@me.com>",
-  "version": "0.0.1",
-  "git": "git://github.com/alexsuslov/meteor-markdown-doc-generator.git",
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
     "branch": "master"

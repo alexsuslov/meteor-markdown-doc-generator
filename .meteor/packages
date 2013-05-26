@@ -9,5 +9,5 @@ router
 bootstrap
 marked
 accounts-base
-accounts-password
 accounts-ui
+accounts-google
