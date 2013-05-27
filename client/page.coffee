@@ -27,13 +27,12 @@ findJack = (content, restrict)->
   content
 
 getPage = (name,restrict)->
-  if restrict
-    restrict = 0
   page = self.pages.findOne name:name
 
   if page
     unless restrict
       document.title = page.displayName
+      restrict = 1
     Jacks = findJack page.content, restrict + 1
   else
     if Meteor.userId()
@@ -46,8 +45,7 @@ view
 
 Template.view.content = ()->
   name = Session.get 'page'
-  restrict = []
-  resp = getPage name, restrict
+  resp = getPage name
   "<div class=\"md\">" + marked( resp) + "</div>"
 
 Template.view.name = ()->
@@ -73,15 +71,22 @@ Template.md.content = ()->
   name = Session.get 'page'
   getPage name
 
+###
+edit
+###
+
+Template.edit.path = ()->
+  Session.get 'page'
+
 Template.edit.page = ()->
-  name = Session.get 'page'
-  self.pages.findOne name:name
+  self.pages.findOne name:Session.get 'page'
 
 Template.edit.events
   'click a#save':(e)->
     name = Session.get 'page'
     update =
       displayName: $('input#displayName').val()
+      tags: $('input#tags').val()
       content:$('textarea#content').val()
     page = self.pages.findOne( name:name)
     if page

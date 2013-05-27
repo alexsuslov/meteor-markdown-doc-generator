@@ -9,12 +9,12 @@ template(name='edit')
         .control-group
           label Тэги
           .controls
-            input#tags(type='text',value='{{page.tag}}')
+            input#tags(type='text',value='{{page.tags}}')
         .control-group
           textarea#content.input-xxlarge(rows="20") {{page.content}}
         .control-group
           .controls
-          a#save.btn(href='/{{page.name}}') Save
+          a#save.btn(href='/{{path}}') Save
 
 template(name='createNew')
   a.btn(href='/{{this}}') Сделаем новую страницу? {{this}}
