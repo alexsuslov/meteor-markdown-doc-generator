@@ -6,13 +6,13 @@ Meteor.Router.add
     if Meteor.userId()
       if name
         page = self.pages.findOne name:name
-        unless page
-          page =
-            name:name
-            owner:Meteor.userId()
-          self.pages.insert page
-        else
-          document.title = page.displayName
+        # unless page
+        #   page =
+        #     name:name
+        #     owner:Meteor.userId()
+        #   self.pages.insert page
+        # else
+        #   document.title = page.displayName
       Session.set 'page', name
       'edit'
     else

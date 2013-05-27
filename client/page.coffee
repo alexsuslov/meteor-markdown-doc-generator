@@ -16,23 +16,40 @@ Meteor.subscribe "pages"
 
 reJack = /#{{[a-zA-Z0-9\.\-\+\_\*]*}}/gim
 
-findJack = (content)->
+findJack = (content, restrict)->
   search = content.match reJack
   if search
     for name in search
-      replaceText = getPage name.replace('#{{','').replace('}}','')
+      pageName = name.replace('#{{','').replace('}}','')
+      # if restrict < 5
+      replaceText = getPage  pageName, restrict
       content = content.replace name, replaceText
   content
 
-getPage = (name)->
+getPage = (name,restrict)->
+  if restrict
+    restrict = 0
   page = self.pages.findOne name:name
+
   if page
-    Jacks = findJack page.content
+    unless restrict
+      document.title = page.displayName
+    Jacks = findJack page.content, restrict + 1
   else
     if Meteor.userId()
       ' [ **'+name+'**](/edit/'+name+') Сделаем?'
     else
       ''
+###
+view
+###
+
+Template.view.content = ()->
+  name = Session.get 'page'
+  restrict = []
+  resp = getPage name, restrict
+  "<div class=\"md\">" + marked( resp) + "</div>"
+
 Template.view.name = ()->
   Session.get 'page'
 
@@ -41,20 +58,20 @@ Template.view.owned = ()->
   page = self.pages.findOne name:name
   if page?.owner is Meteor.userId()
     owned = name
-
+###
+main
+###
 
 Template.main.content = ()->
   resp = getPage 'main'
   "<div class=\"md\">" + marked( resp) + "</div>"
+###
+md
+###
 
 Template.md.content = ()->
   name = Session.get 'page'
   getPage name
-
-Template.view.content = ()->
-  name = Session.get 'page'
-  resp = getPage name
-  "<div class=\"md\">" + marked( resp) + "</div>"
 
 Template.edit.page = ()->
   name = Session.get 'page'
@@ -66,6 +83,10 @@ Template.edit.events
     update =
       displayName: $('input#displayName').val()
       content:$('textarea#content').val()
-    id = self.pages.findOne( name:name)._id
-    self.pages.update id, $set:update
-    # console.log update
+    page = self.pages.findOne( name:name)
+    if page
+      self.pages.update page._id, $set:update
+    else
+      update.owner = Meteor.userId()
+      update.name = name
+      self.pages.insert update
