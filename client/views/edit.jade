@@ -5,16 +5,23 @@ template(name='edit')
         .control-group
           label Наименование
           .controls
-            input#displayName(type='text',value='{{page.displayName}}')
+            input#displayName.span12(type='text',value='{{page.displayName}}')
         .control-group
           label Тэги
           .controls
-            input#tags(type='text',value='{{page.tags}}')
+            input#tags.span12(type='text',value='{{page.tags}}')
         .control-group
-          textarea#content.input-xxlarge(rows="20") {{page.content}}
+          textarea#content.span12(rows="20") {{page.content}}
         .control-group
           .controls
-          a#save.btn(href='/{{path}}') Save
+            .btn-group
+              a.save.btn(href='/{{path}}') Save
+              a.save.btn(href='#') Update
+              a#delete.btn(href='#') Delete
 
 template(name='createNew')
-  a.btn(href='/{{this}}') Сделаем новую страницу? {{this}}
+  a.btn(href='/{{this}}')  create {{this}}?
+
+template(name='upPanel')
+  #upPanel
+    {{{this}}}

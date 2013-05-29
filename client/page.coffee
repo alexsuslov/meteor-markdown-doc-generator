@@ -21,32 +21,44 @@ findJack = (content, restrict)->
   if search
     for name in search
       pageName = name.replace('#{{','').replace('}}','')
-      # if restrict < 5
-      replaceText = getPage  pageName, restrict
+      # clean from dead cicle
+      unless restrict.indexOf pageName is -1
+        replaceText = ' [ **'+pageName+'**](/edit/'+pageName+')'
+      else
+        replaceText = renderPage  pageName, restrict
       content = content.replace name, replaceText
-  content
+  marked content
 
-getPage = (name,restrict)->
+renderPage = (name,restrict)->
   page = self.pages.findOne name:name
 
   if page
     unless restrict
       document.title = page.displayName
-      restrict = 1
-    Jacks = findJack page.content, restrict + 1
-  else
-    if Meteor.userId()
-      ' [ **'+name+'**](/edit/'+name+') Сделаем?'
+      restrict= [name]
     else
-      ''
+      restrict.push name
+
+    Jacks = findJack page.content, restrict
+  else
+    ''
+  # else
+  #   if Meteor.userId()
+  #     # Template.createNew name
+  #     # ' <a href="/edit/'+name+'""> '+name+'</a>'
+  #   else
+  #     # ''
 ###
 view
 ###
 
 Template.view.content = ()->
-  name = Session.get 'page'
-  resp = getPage name
-  "<div class=\"md\">" + marked( resp) + "</div>"
+  # name = Session.get 'page'
+  # resp = renderPage name
+  # "<div class=\"md\">" + marked( resp) + "</div>"
+  content = renderPage Session.get 'page'
+  if content
+    marked content
 
 Template.view.name = ()->
   Session.get 'page'
@@ -61,15 +73,7 @@ main
 ###
 
 Template.main.content = ()->
-  resp = getPage 'main'
-  "<div class=\"md\">" + marked( resp) + "</div>"
-###
-md
-###
-
-Template.md.content = ()->
-  name = Session.get 'page'
-  getPage name
+  renderPage 'main'
 
 ###
 edit
@@ -82,7 +86,7 @@ Template.edit.page = ()->
   self.pages.findOne name:Session.get 'page'
 
 Template.edit.events
-  'click a#save':(e)->
+  'click a.save':(e)->
     name = Session.get 'page'
     update =
       displayName: $('input#displayName').val()

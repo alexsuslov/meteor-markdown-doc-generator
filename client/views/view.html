@@ -1,2 +1,2 @@
-<template name="view"><div class="container-fluid">{{> navbar}}
-{{#if owned}}<a href="/edit/{{owned}}" class="btn">Редактировать</a><a href="/md/{{owned}}" class="btn">MD</a>{{/if}}<div class="row-fluid"><div class="span12">{{{content}}}</div></div>{{> footer}}</div></template><template name="md"><div class="container-fluid">{{> navbar}}<div class="row-fluid"><div class="span12"><pre>{{content}}</pre></div></div>{{> footer}}</div></template>
+<template name="view">{{{content}}}</template><template name="view1"><div class="container-fluid">{{> navbar}}
+{{#if owned}}<div id="upPanel"><a href="/edit/{{owned}}" class="btn">Редактировать</a><a href="/md/{{owned}}" class="btn">MD</a></div>{{/if}}<div class="row-fluid"><div class="span12">{{{content}}}</div></div>{{> footer}}</div></template>
