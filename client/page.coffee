@@ -53,9 +53,6 @@ view
 ###
 
 Template.view.content = ()->
-  # name = Session.get 'page'
-  # resp = renderPage name
-  # "<div class=\"md\">" + marked( resp) + "</div>"
   content = renderPage Session.get 'page'
   if content
     marked content
@@ -75,6 +72,13 @@ main
 Template.main.content = ()->
   renderPage 'main'
 
+###
+src
+###
+Template.src.content = ()->
+  page = self.pages.findOne( name:Session.get 'page')
+  if page
+    page.content
 ###
 edit
 ###

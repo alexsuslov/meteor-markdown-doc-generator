@@ -1,16 +1,14 @@
 template( name='view')
   {{{content}}}
 
-template( name='view1')
+template( name='src')
+  {{> navbar}}
   .container-fluid
-    {{> navbar}}
-    {{#if owned}}
-    #upPanel
-      a.btn(href='/edit/{{owned}}') Редактировать
-      a.btn(href='/md/{{owned}}') MD
-    {{/if}}
     .row-fluid
       .span12
-        {{{content}}}
+
+        pre
+          {{content}}
     {{> footer}}
+
 
