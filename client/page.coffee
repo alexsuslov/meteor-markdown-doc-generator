@@ -15,6 +15,7 @@ marked.setOptions
 Meteor.subscribe "pages"
 
 reJack = /#{{[a-zA-Z0-9\.\-\+\_\*]*}}/gim
+reJackValues = /#{[a-zA-Z0-9\.\-\+\_\*]*}/gim
 
 findJack = (content, restrict)->
   search = content.match reJack
@@ -27,6 +28,13 @@ findJack = (content, restrict)->
       else
         replaceText = renderPage  pageName, restrict
       content = content.replace name, replaceText
+  search = content.match reJackValues
+  if search
+    for name in search
+      valueName = name.replace('#{','').replace('}','')
+      if window.pageData?[valueName]
+        content = content.replace name, window.pageData[valueName]
+
   marked content
 
 renderPage = (name,restrict)->
@@ -34,6 +42,12 @@ renderPage = (name,restrict)->
 
   if page
     unless restrict
+      try
+        window.pageData =  JSON.parse page.values
+      catch e
+        console.log e
+      # finally
+      #   cleanUp()
       document.title = page.displayName
       restrict= [name]
     else
@@ -96,6 +110,7 @@ Template.edit.events
       displayName: $('input#displayName').val()
       tags: $('input#tags').val()
       content:$('textarea#content').val()
+      values:$('textarea#values').val()
     page = self.pages.findOne( name:name)
     if page
       self.pages.update page._id, $set:update
