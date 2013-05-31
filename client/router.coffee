@@ -1,3 +1,4 @@
+self= @
 Meteor.subscribe "pages"
 
 Meteor.Router.add
@@ -7,12 +8,16 @@ Meteor.Router.add
     if Meteor.userId() and name
       Session.set 'page', name
       'src'
+  '/ed/:id': (id)->
+    Session.set 'id', id
+    'edit'
   '/edit/:name': (name)->
-    if Meteor.userId() and name
-      Session.set 'page', name
-      'edit'
-    else
-      'src'
+    Session.set 'page', name
+    page = self.pages.findOne name:name
+    if page
+      Session.set 'id', page._id
+      # console.log page._id
+    'edit'
   '/:name': (name)->
     Session.set 'page', name
     'view'
