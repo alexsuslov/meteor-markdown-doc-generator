@@ -100,20 +100,27 @@ Template.edit.path = ()->
   Session.get 'page'
 
 Template.edit.page = ()->
-  self.pages.findOne name:Session.get 'page'
+  self.pages.findOne Session.get 'id'
 
 Template.edit.events
+  'click a#delete':(e)->
+    id = Session.get 'id'
+    if id
+      self.pages.remove id
+
   'click a.save':(e)->
+    id = Session.get 'id'
     name = Session.get 'page'
     update =
       displayName: $('input#displayName').val()
       tags: $('input#tags').val()
       content:$('textarea#content').val()
       values:$('textarea#values').val()
-    page = self.pages.findOne( name:name)
-    if page
-      self.pages.update page._id, $set:update
+    if id
+      # console.log update
+      self.pages.update id, $set:update
     else
+      # console.log 'insert'
       update.owner = Meteor.userId()
       update.name = name
       self.pages.insert update
