@@ -16,4 +16,13 @@ template(name='pages')
             //- a.btn.pull-right.rm(href='#')
             //-   i.icon-remove
           {{/each}}
+    {{> pagination}}
     {{> footer}}
+template(name = 'pagination')
+  .row-fluid
+    .span12
+      .pagination
+        ul {{#each pgn}}
+          li
+            a.btn(href="/pages/{{this}}") {{this}}
+          | {{/each}}

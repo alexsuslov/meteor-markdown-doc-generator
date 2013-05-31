@@ -5,6 +5,7 @@
   },
   "packages": {
     "router": {},
-    "marked": {}
+    "marked": {},
+    "pagination": {}
   }
 }

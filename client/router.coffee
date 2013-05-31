@@ -3,7 +3,12 @@ Meteor.subscribe "pages"
 
 Meteor.Router.add
   '': 'main'
-  '/pages': 'pages'
+  '/pages': ->
+    Session.set 'n', 0
+    'pages'
+  '/pages/:n':(n)->
+    Session.set 'n', n
+    'pages'
   '/src/:name': (name)->
     if Meteor.userId() and name
       Session.set 'page', name
