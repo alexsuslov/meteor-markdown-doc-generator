@@ -9,23 +9,11 @@ template(name='pages')
     .row-fluid
       .span12
         .control-group
-          a.pull-right.fast.btn.pre(href='#')
-            i.icon-plus-sign
-            | New
-          input#filter.input-xlarge.span2.search-query(type="text")
-    .row-fluid
-      .span12
-        {{#if quick}}
-        .control-group
-          label Новый
-          .input-append
-            input#name.input-xlarge(type='text')
-            button#add.pull-right.btn Добавить
-        {{/if}}
+          input#filter.input-xlarge.span2.search-query(type="text",value='{{filter}}')
         ul.unstyled {{#each list}}
           li.control-group
-            a(href='#') {{name}}
-            a.btn.pull-right.rm(href='#')
-              i.icon-remove
+            a.edit(href='/ed/{{_id}}') {{name}}({{user owner}})
+            //- a.btn.pull-right.rm(href='#')
+            //-   i.icon-remove
           {{/each}}
     {{> footer}}
