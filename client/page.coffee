@@ -42,12 +42,11 @@ renderPage = (name,restrict)->
 
   if page
     unless restrict
-      try
-        window.pageData =  JSON.parse page.values
-      catch e
-        console.log e
-      # finally
-      #   cleanUp()
+      if page.values
+        try
+          window.pageData =  JSON.parse page.values
+        catch e
+          console.log e
       document.title = page.displayName
       restrict= [name]
     else

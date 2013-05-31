@@ -2,7 +2,7 @@ Meteor.subscribe "pages"
 
 Meteor.Router.add
   '': 'main'
-  '/auth': 'auth'
+  '/pages': 'pages'
   '/src/:name': (name)->
     if Meteor.userId() and name
       Session.set 'page', name

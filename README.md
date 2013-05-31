@@ -15,5 +15,12 @@ To include content from other page you must add  #{{name}}
 
 - name is the name of the page
 
+## Add values
+In  values field {"world":"World!"}
+## Include values
+To include from other page you must add  #{name}
+
+- name is the name of the value
+
 ----
 [markdown]: http://daringfireball.net/projects/markdown/
