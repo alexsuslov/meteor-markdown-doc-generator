@@ -92,19 +92,22 @@ edit
 Template.edit.button = ()->
   Session.get 'button'
 
-Template.edit.rendered = ()->
-  wideArea()
+# Template.edit.rendered = ()->
+#   # wideArea("#content")
+#   wideArea()
 
 Template.edit.path = ()->
   Session.get 'page'
 
 Template.edit.page = ()->
   page = self.pages.findOne Session.get 'id'
-  if page
-    if page.owner isnt Meteor.userId()
-      Session.set 'button', false
-  else
+
+  unless page
     Session.set 'button', true
+  else if page?.owner is Meteor.userId()
+    Session.set 'button', true
+  else
+    Session.set 'button', false
   page
 
 Template.edit.events
