@@ -18,12 +18,9 @@ Template.pages.list = ->
     limit:20
     skip:n * 20
 
-
   pages = self.pages.find(filter)
   Session.set 'pages', pages.count()
   self.pages.find(filter,options)
-
-
 
 Template.pages.filter = ()->
   Session.get 'filter'

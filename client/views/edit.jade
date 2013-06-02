@@ -19,17 +19,19 @@ template(name='edit')
         .control-group
           label Контент
           .controls
-            textarea#content.span12(rows="20") {{page.content}}
+            textarea#content.span12(rows="20", data-widearea="enable") {{page.content}}
         .control-group
           label Переменные
           .controls
-            textarea#values.span12(rows="5") {{page.values}}
+            textarea#values.span12(rows="3") {{page.values}}
+        {{#if button}}
         .control-group
           .controls
             .btn-group
               a.save.btn(href='/{{path}}') Save
               a.save.btn(href='#') Update
               a#delete.btn(href='/pages') Delete
+        {{/if}}
 
 template(name='createNew')
   a.btn(href='/{{this}}')  create {{this}}?

@@ -55,12 +55,6 @@ renderPage = (name,restrict)->
     Jacks = findJack page.content, restrict
   else
     ''
-  # else
-  #   if Meteor.userId()
-  #     # Template.createNew name
-  #     # ' <a href="/edit/'+name+'""> '+name+'</a>'
-  #   else
-  #     # ''
 ###
 view
 ###
@@ -95,12 +89,23 @@ Template.src.content = ()->
 ###
 edit
 ###
+Template.edit.button = ()->
+  Session.get 'button'
+
+Template.edit.rendered = ()->
+  wideArea()
 
 Template.edit.path = ()->
   Session.get 'page'
 
 Template.edit.page = ()->
-  self.pages.findOne Session.get 'id'
+  page = self.pages.findOne Session.get 'id'
+  if page
+    if page.owner isnt Meteor.userId()
+      Session.set 'button', false
+  else
+    Session.set 'button', true
+  page
 
 Template.edit.events
   'click a#delete':(e)->
@@ -123,4 +128,5 @@ Template.edit.events
       # console.log 'insert'
       update.owner = Meteor.userId()
       update.name = name
-      self.pages.insert update
+      Session.set 'id', self.pages.insert update
+
