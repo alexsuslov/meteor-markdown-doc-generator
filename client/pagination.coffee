@@ -7,5 +7,4 @@ Template.pagination.pgn = ->
     pgn.push i
     i += 1
   pgn
-  # pages = self.pages.find({},limit).count()
-  # console.log pages
+
