@@ -1,0 +1,8 @@
+template(name = 'pagination')
+  .row-fluid
+    .span12
+      .pagination
+        ul {{#each pgn}}
+          li
+            a.btn(href="/pages/{{this}}") {{this}}
+          {{/each}}
