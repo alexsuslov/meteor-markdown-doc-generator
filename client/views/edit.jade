@@ -32,6 +32,9 @@ template(name='edit')
               a.save.btn(href='#') Update
               a#delete.btn(href='/pages') Delete
         {{/if}}
+    .row-fluid
+      .span12
+        {{> subPages}}
 
 template(name='createNew')
   a.btn(href='/{{this}}')  create {{this}}?

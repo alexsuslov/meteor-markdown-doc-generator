@@ -89,12 +89,9 @@ Template.src.content = ()->
 ###
 edit
 ###
+
 Template.edit.button = ()->
   Session.get 'button'
-
-# Template.edit.rendered = ()->
-#   # wideArea("#content")
-#   wideArea()
 
 Template.edit.path = ()->
   Session.get 'page'
