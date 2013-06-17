@@ -45,6 +45,7 @@ Template.edit.events
       tags: $('input#tags').val()
       content:$('textarea#content').val()
       values:$('textarea#values').val()
+      update: new Date()
     if id
       # console.log update
       self.pages.update id, $set:update
