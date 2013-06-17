@@ -30,7 +30,10 @@ Meteor.Router.add
     page = self.pages.findOne name:name
     if page
       Session.set 'id', page._id
-    'edit'
+    if Meteor.userId()
+      'edit'
+    else
+      'view'
 
 # Normal view
 

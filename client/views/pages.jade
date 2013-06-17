@@ -12,6 +12,9 @@ template(name='pages')
             a.edit(href='/ed/{{_id}}') {{name}}({{user owner}})
             //- a.btn.pull-right.rm(href='#')
             //-   i.icon-remove
+          {{else}}
+          li
+            a.btn(href='/edit/{{filter}}') Create {{filter}}?
           {{/each}}
     {{> pagination}}
     {{> footer}}
