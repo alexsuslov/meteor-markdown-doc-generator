@@ -23,13 +23,16 @@ Meteor.Router.add
 #  by id
   '/ed/:id': (id)->
     Session.set 'id', id
+    page = self.pages.findOne id
+    Session.set 'page', page.name if page
     'edit'
+
 #  by name
   '/edit/:name': (name)->
     Session.set 'page', name
     page = self.pages.findOne name:name
-    if page
-      Session.set 'id', page._id
+    Session.set 'id', page._id if page
+
     if Meteor.userId()
       'edit'
     else
