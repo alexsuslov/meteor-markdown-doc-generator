@@ -3,9 +3,13 @@ Meteor.subscribe "archPages"
 
 ###
 #
-# Pages.helpers
+# Arhive
 #
 ###
+
+Template.arhive.content = ()->
+  archPage = self.archPages.findOne Session.get 'archView'
+  self.renderContent(archPage.name, archPage.content) if archPage
 
 Template.arhive.filter = ()->
   Session.get 'filter'
@@ -35,7 +39,7 @@ Template.arhive.list = ->
 
 ###
 #
-# Pages.helpers
+# Arhive.helpers
 #
 ###
 
@@ -47,7 +51,7 @@ Template.arhive.helpers
 
 ###
 #
-# Pages.events
+# Arhive.events
 #
 ###
 
@@ -57,7 +61,10 @@ Template.arhive.events
     e.preventDefault()
     Session.set 'filter', $('input#filter').val() if e.keyCode is 13
 
-  'click a.restore':(e)->
+  'click a.view':(e)->
+    Session.set 'archView', @_id
+
+  'click button.restore':(e)->
     console.log e
     # Session.set 'id', @_id
 
