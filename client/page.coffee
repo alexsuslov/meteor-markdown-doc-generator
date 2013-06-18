@@ -1,6 +1,7 @@
 self = @
 
 Meteor.subscribe "pages"
+Meteor.subscribe "archPages"
 
 ###
 #
@@ -46,6 +47,7 @@ Template.edit.events
       content:$('textarea#content').val()
       values:$('textarea#values').val()
       update: new Date()
+    self.pages.archPages update
     if id
       # console.log update
       self.pages.update id, $set:update
