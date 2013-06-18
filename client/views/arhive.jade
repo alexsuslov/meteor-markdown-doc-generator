@@ -1,0 +1,20 @@
+template(name='arhive')
+  .container-fluid
+    .row-fluid
+      .span12
+      {{> navbar}}
+    .row-fluid
+      .span12
+        .control-group
+          input#filter.input-xlarge.span2.search-query(type="text",value='{{filter}}')
+        ul.unstyled {{#each list}}
+          li.control-group
+            a.edit(href='/ed/{{_id}}') {{name}}({{user owner}})
+            //- a.btn.pull-right.rm(href='#')
+            //-   i.icon-remove
+          {{else}}
+          li Пусто
+          {{/each}}
+    {{> pagination}}
+    {{> footer}}
+

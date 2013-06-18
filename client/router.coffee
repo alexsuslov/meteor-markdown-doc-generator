@@ -4,6 +4,14 @@ Meteor.subscribe "pages"
 Meteor.Router.add
   '': 'main'
 
+  '/arhive': ->
+    Session.set 'n', 0
+    'arhive'
+
+  '/arhive/:n':(n)->
+    Session.set 'n', n
+    'arhive'
+
   '/pages': ->
     Session.set 'n', 0
     'pages'

@@ -47,7 +47,7 @@ Template.edit.events
       content:$('textarea#content').val()
       values:$('textarea#values').val()
       update: new Date()
-    self.pages.archPages update
+    self.archPages.insert update
     if id
       # console.log update
       self.pages.update id, $set:update
