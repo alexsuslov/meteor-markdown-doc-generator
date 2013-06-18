@@ -10,21 +10,16 @@ Meteor.subscribe "archPages"
 ###
 
 Template.edit.button = ()->
-  Session.get 'button'
+  page = self.pages.findOne( Session.get 'id')
+  button = page.owner is Meteor.userId() if page
+  button = true unless page
+  button
 
 Template.edit.path = ()->
   Session.get 'page'
 
 Template.edit.page = ()->
-  page = self.pages.findOne Session.get 'id'
-
-  unless page
-    Session.set 'button', true
-  else if page?.owner is Meteor.userId()
-    Session.set 'button', true
-  else
-    Session.set 'button', false
-  page
+  self.pages.findOne Session.get 'id'
 
 ###
 #
@@ -35,8 +30,7 @@ Template.edit.page = ()->
 Template.edit.events
   'click a#delete':(e)->
     id = Session.get 'id'
-    if id
-      self.pages.remove id
+    self.pages.remove id if id
 
   'click a.save':(e)->
     id = Session.get 'id'
@@ -47,7 +41,15 @@ Template.edit.events
       content:$('textarea#content').val()
       values:$('textarea#values').val()
       update: new Date()
-    self.archPages.insert update
+    self.archPages.insert
+      name:name
+      displayName:update.displayName
+      tags:update.tags
+      content:update.content
+      values:update.values
+      values:update.values
+      update:update.update
+      owner:Meteor.userId()
     if id
       # console.log update
       self.pages.update id, $set:update
