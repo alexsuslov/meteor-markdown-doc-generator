@@ -21,6 +21,7 @@ Template.edit.path = ()->
 Template.edit.page = ()->
   self.pages.findOne Session.get 'id'
 
+
 ###
 #
 # Edit.events

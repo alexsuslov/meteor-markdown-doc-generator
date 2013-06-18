@@ -1,41 +1,41 @@
 template(name='edit')
   .container-fluid
-    .row-fluid
-      .span12
-        {{> navbar}}
-        h3 Редактирование: {{page.name}}
-    .row-fluid
-      .span6
-        .control-group
-          label Наименование
-          .controls
-            input#displayName.span12(type='text',value='{{page.displayName}}')
-      .span6
-        .control-group
-          label Тэги
-          .controls
-            input#tags.span12(type='text',value='{{page.tags}}')
-    .row-fluid
-      .span12
-        .control-group
-          label Контент
-          .controls
-            textarea#content.span12(rows="20") {{page.content}}
-        .control-group
-          label Переменные
-          .controls
-            textarea#values.span12(rows="3") {{page.values}}
-        {{#if button}}
-        .control-group
-          .controls
-            .btn-group
-              a.save.btn(href='/{{path}}') Save
-              a.save.btn(href='#') Update
-              a#delete.btn(href='/pages') Delete
-        {{/if}}
-    .row-fluid
-      .span12
-        {{> subPages}}
+        .row-fluid
+          .span12
+            {{> navbar}}
+            h3 Редактирование: {{page.name}}
+        .row-fluid
+          .span6
+            .control-group
+              label Наименование
+              .controls
+                input#displayName.span12(type='text',value='{{page.displayName}}')
+          .span6
+            .control-group
+              label Тэги
+              .controls
+                input#tags.span12(type='text',value='{{page.tags}}')
+        .row-fluid
+          .span12
+            .control-group
+              label Контент
+              .controls
+                textarea#content.span12(rows="20") {{page.content}}
+            .control-group
+              label Переменные
+              .controls
+                textarea#values.span12(rows="3") {{page.values}}
+            {{#if button}}
+            .control-group
+              .controls
+                .btn-group
+                  a.save.btn(href='/{{path}}') Save
+                  a.save.btn(href='#') Update
+                  a#delete.btn(href='/pages') Delete
+            {{/if}}
+        .row-fluid
+          .span12
+            {{> subPages}}
 
 template(name='createNew')
   a.btn(href='/{{this}}')  create {{this}}?

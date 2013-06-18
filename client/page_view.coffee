@@ -13,11 +13,11 @@ marked.setOptions
     return highlighter.javascript(code)  if lang is "js"
     code
 
-reJack = /#{{[a-zA-Z0-9\.\-\+\_\*]*}}/gim
-reJackValues = /#{[a-zA-Z0-9\.\-\+\_\*]*}/gim
+
 
 
 jackPages = (content, restrict)->
+  reJack = /#{{[a-zA-Z0-9\.\-\+\_\*]*}}/gim
   search = content.match reJack
   if search
     for name in search
@@ -31,6 +31,7 @@ jackPages = (content, restrict)->
   content
 
 jackValues = (content)->
+  reJackValues = /#{[a-zA-Z0-9\.\-\+\_\*]*}/gim
   search = content.match reJackValues
   if search
     for name in search
@@ -63,8 +64,10 @@ renderPage = (name,restrict)->
   else
     ''
 self.renderContent = (name, content)->
-  restrict = [name]
-  findJack(content, restrict)
+  if name and content
+    restrict = [name]
+    findJack(content, restrict)
+
 ###
 #
 # view
