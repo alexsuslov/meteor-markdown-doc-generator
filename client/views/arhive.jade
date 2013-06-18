@@ -4,17 +4,19 @@ template(name='arhive')
       .span12
       {{> navbar}}
     .row-fluid
-      .span12
+      .span6
+        {{{content}}}
+      .span6
         .control-group
           input#filter.input-xlarge.span2.search-query(type="text",value='{{filter}}')
         ul.unstyled {{#each list}}
           li.control-group
-            a.edit(href='/ed/{{_id}}') {{name}}({{user owner}})
-            //- a.btn.pull-right.rm(href='#')
-            //-   i.icon-remove
+            a.view(href='#') &nbsp; {{name}}
+            button.btn.pull-right.restore
+              i.icon-refresh
           {{else}}
           li Пусто
           {{/each}}
-    {{> pagination}}
+        {{> pagination}}
     {{> footer}}
 

@@ -62,6 +62,9 @@ renderPage = (name,restrict)->
     Jacks = findJack page.content, restrict
   else
     ''
+self.renderContent = (name, content)->
+  restrict = [name]
+  findJack(content, restrict)
 ###
 #
 # view
