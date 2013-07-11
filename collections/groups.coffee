@@ -21,6 +21,16 @@ if Meteor.isServer
     self.groups.find({},sort:displayName:1)
 
   Meteor.methods
+  'userAdd':(userId,group)->
+    # @todo add admin restrict
+    group = self.groups.findOne displayName:group
+    if group
+      i = group.users.indexOf userId if group.users
+      unless i is -1
+        group.users.push userId
+        self.groups.update group._is, $set:users:group.users
+
+
   'inGroup':(userId,group)->
     group = self.groups.findOne displayName:group
     i = group.users.indexOf userId if group.users
