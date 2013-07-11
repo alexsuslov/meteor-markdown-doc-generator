@@ -29,6 +29,9 @@ Template.edit.page = ()->
 ###
 
 Template.edit.events
+  'click button#my':(e)->
+    console.log e
+
   'click a#delete':(e)->
     id = Session.get 'id'
     self.pages.remove id if id
