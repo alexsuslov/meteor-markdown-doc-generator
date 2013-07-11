@@ -1,31 +1,40 @@
 self= @
 Meteor.subscribe "pages"
 
+isUser = (usersPage, anonPage)->
+  anonPage = 'main' unless anonPage
+
+  if Meteor.userId
+    usersPage
+  else
+    anonPage
+
+
 Meteor.Router.add
   '': 'main'
+  '/sigin':'auth'
 
   '/arhive': ->
     Session.set 'n', 0
-    'arhive'
+    isUser 'arhive'
 
   '/arhive/:n':(n)->
     Session.set 'n', n
-    'arhive'
+    isUser 'arhive'
 
   '/pages': ->
     Session.set 'n', 0
-    'pages'
+    isUser 'pages'
 
   '/pages/:n':(n)->
     Session.set 'n', n
-    'pages'
+    isUser 'pages'
 
 # Source view
 
   '/src/:name': (name)->
-    if Meteor.userId() and name
-      Session.set 'page', name
-      'src'
+    Session.set 'page', name
+    isUser 'src'
 
 # Edit
 #  by id
@@ -33,7 +42,7 @@ Meteor.Router.add
     Session.set 'id', id
     page = self.pages.findOne id
     Session.set 'page', page.name if page
-    'edit'
+    isUser 'edit'
 
 #  by name
   '/edit/:name': (name)->
@@ -41,10 +50,7 @@ Meteor.Router.add
     page = self.pages.findOne name:name
     Session.set 'id', page._id if page
 
-    if Meteor.userId()
-      'edit'
-    else
-      'view'
+    isUser 'edit', 'view'
 
 # Normal view
 
@@ -54,6 +60,7 @@ Meteor.Router.add
 
   Template.body.helpers
     layoutName:()->
+      console.log Meteor.Router.page()
       if Meteor.Router.page()
         Meteor.Router.page()
       else

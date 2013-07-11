@@ -63,6 +63,7 @@ renderPage = (name,restrict)->
     Jacks = findJack page.content, restrict
   else
     ''
+
 self.renderContent = (name, content)->
   if name and content
     restrict = [name]
